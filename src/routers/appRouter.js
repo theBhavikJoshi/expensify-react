@@ -1,24 +1,29 @@
 import React from 'react';
 import {
-  BrowserRouter, Route, Switch, NavLink, Link
+  Router, Route, Switch, NavLink, Link
 } from 'react-router-dom';
-
-import Header from "../components/Header";
+import createHistory from 'history/createBrowserHistory';
+import LoginPage from "../components/LoginPage";
 import ExpenseDashboardPage from "../components/ExpenseDashboardPage";
 import AddExpenseForm from "../components/AddExpenseForm";
 import EditExpenseForm from "../components/EditExpenseForm";
 
+import PrivateRoute from './privateRoutes';
+import PublicRoute from './publicRoutes';
+
+export const history = createHistory();
+
 const AppRouter = () => (
-  <BrowserRouter>
+  <Router history={history}>
     <div>
-      <Header />
       <Switch>
-        <Route path='/' component={ExpenseDashboardPage} exact={true} />
-        <Route path='/create' component={AddExpenseForm} />
-        <Route path='/edit/:id' component={EditExpenseForm} />
+        <PublicRoute path='/' component={LoginPage} exact={true} />
+        <PrivateRoute path='/dashboard' component={ExpenseDashboardPage} />
+        <PrivateRoute path='/create' component={AddExpenseForm} />
+        <PrivateRoute path='/edit/:id' component={EditExpenseForm} />
       </Switch>
     </div>
-  </BrowserRouter>
+  </Router>
 )
 
 export default AppRouter;
