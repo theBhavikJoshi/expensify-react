@@ -1,15 +1,13 @@
 import React from 'react';
-import {
-  Router, Route, Switch, NavLink, Link
-} from 'react-router-dom';
+import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-import LoginPage from "../components/LoginPage";
-import ExpenseDashboardPage from "../components/ExpenseDashboardPage";
-import AddExpenseForm from "../components/AddExpenseForm";
-import EditExpenseForm from "../components/EditExpenseForm";
-
-import PrivateRoute from './privateRoutes';
-import PublicRoute from './publicRoutes';
+import ExpenseDashboardPage from '../components/ExpenseDashboardPage';
+import AddExpensePage from '../components/AddExpensePage';
+import EditExpensePage from '../components/EditExpensePage';
+import NotFoundPage from '../components/NotFoundPage';
+import LoginPage from '../components/LoginPage';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
 export const history = createHistory();
 
@@ -17,13 +15,14 @@ const AppRouter = () => (
   <Router history={history}>
     <div>
       <Switch>
-        <PublicRoute path='/' component={LoginPage} exact={true} />
-        <PrivateRoute path='/dashboard' component={ExpenseDashboardPage} />
-        <PrivateRoute path='/create' component={AddExpenseForm} />
-        <PrivateRoute path='/edit/:id' component={EditExpenseForm} />
+        <PublicRoute path="/" component={LoginPage} exact={true} />
+        <PrivateRoute path="/dashboard" component={ExpenseDashboardPage} />
+        <PrivateRoute path="/create" component={AddExpensePage} />
+        <PrivateRoute path="/edit/:id" component={EditExpensePage} />
+        <Route component={NotFoundPage} />
       </Switch>
     </div>
   </Router>
-)
+);
 
 export default AppRouter;
